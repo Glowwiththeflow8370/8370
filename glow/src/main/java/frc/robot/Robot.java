@@ -7,6 +7,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Motor;
+import com.ctre.phoenix.*;
+import com.ctre.phoenix.motorcontrol.*;
+import frc.robot.subsystems.DT;
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants;
+import frc.robot.Constants.OperatorConstants;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,8 +23,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  private final Motor motors = new Motor();
   private RobotContainer m_robotContainer;
+  private DT dt;
+  // Initializes the xbox controller and statically references the port from Constants for simplicities sake. Value is typically set to 0.
+  private final XboxController xb1 = new XboxController(OperatorConstants.kDriverControllerPort);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -81,7 +91,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    dt = new DT(xb1.getRawAxis(0), xb1.getRawAxis(1));
+  }
 
   @Override
   public void testInit() {

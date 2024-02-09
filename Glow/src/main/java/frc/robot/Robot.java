@@ -23,8 +23,6 @@ import frc.robot.Constants.OperatorConstants;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
-  private final Motor motors = new Motor();
   private RobotContainer m_robotContainer;
   private DT dt;
   // Initializes the xbox controller and statically references the port from Constants for simplicities sake. Value is typically set to 0.

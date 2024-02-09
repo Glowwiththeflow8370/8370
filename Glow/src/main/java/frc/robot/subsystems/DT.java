@@ -13,7 +13,16 @@ public class DT extends SubsystemBase {
   Motor motor = new Motor();
   /** Creates a new Drivetrain. (Note the args passed through are getting the axis of the controller joystick) */
   public DT(double xAxis, double yAxis) {
-    DifferentialDrive driveTrain = new DifferentialDrive(motor.rightMotorControlGroup, motor.leftMotorCotnrolGroup);
+    DifferentialDrive driveTrain = new DifferentialDrive(
+      (double output) -> {
+        motor.frontLeft.set(output);
+        motor.backLeft.set(output);
+    },
+    (double output) -> {
+        motor.frontRight.set(output);
+        motor.backRight.set(output);
+    }
+    );
     driveTrain.arcadeDrive(xAxis, yAxis);
   }
 
